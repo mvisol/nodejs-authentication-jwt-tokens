@@ -3,14 +3,14 @@
 module.exports ={
 
     signUp: async (req, res, next)=>{
-        cosole.log('signUp() reached')
+        console.log('signUp() reached')
     },
 
     signIn: async (req, res, next)=>{
-        cosole.log('signIn() reached')
+        console.log('signIn() reached')
     },
 
     secret: async (req, res, next)=>{
-        cosole.log('secret reached')
+        console.log('secret reached')
     }
 }
