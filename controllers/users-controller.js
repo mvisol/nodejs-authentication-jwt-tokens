@@ -50,10 +50,18 @@ module.exports ={
         res.status(200).json({token : token});
     },
 
+
+
     //SignIn : Exchange already existing user for a new token 
     signIn: async (req, res, next)=>{
         console.log('signIn() reached');
+        console.log('\n Successful Login');
+        // Generate token
+        const token = signToken(req.user);
+        res.status(200).json({ token });
     },
+
+
 
     //Secret
     secret: async (req, res, next)=>{
