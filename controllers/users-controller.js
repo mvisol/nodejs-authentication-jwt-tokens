@@ -50,12 +50,15 @@ module.exports ={
         res.status(200).json({token : token});
     },
 
-    //SignIn
+    //SignIn : Exchange already existing user for a new token 
     signIn: async (req, res, next)=>{
         console.log('signIn() reached');
     },
 
+    //Secret
     secret: async (req, res, next)=>{
         console.log('secret reached');
+        console.log('secret document reched');
+        res.json({secret : 'Secret Info Reached'});
     }
 }
