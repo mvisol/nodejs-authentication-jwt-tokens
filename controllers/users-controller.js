@@ -27,18 +27,20 @@ module.exports ={
     signUp: async (req, res, next) => {
         console.log('signUp() reached');
         // Password and Email sent with request
-        const email = req.value.body.email;
-        const password = req.value.body.password;
+        const { email, password } = req.value.body;
         //Check if User Already Exists
-        const foundUser = await User.findOne({email : email});
+        const foundUser = await User.findOne({"local.email" : email});
         //If User Already Exists Do Not Create Or Else
         if(foundUser){
             return res.status(403).json({error : 'Email Already Exists!!!!!'});
         }
         //Create New User With Email and Password
         const newUser = new User({
-            email : email,
-            password : password
+            method: 'local',
+            local : {
+                email : email,
+                password : password
+            }    
         });
         //Save NewUser to Database and Respond With Token
         await newUser.save();
@@ -50,8 +52,6 @@ module.exports ={
         res.status(200).json({token : token});
     },
 
-
-
     //SignIn : Exchange already existing user for a new token 
     signIn: async (req, res, next)=>{
         console.log('signIn() reached');
@@ -61,7 +61,12 @@ module.exports ={
         res.status(200).json({ token });
     },
 
-
+    googleOAuth: async (req, res, next) => {
+        // Generate token
+        console.log('req.user ', req.user)
+        const token = signToken(req.user);
+        res.status(200).json({token});
+    },
 
     //Secret
     secret: async (req, res, next)=>{
